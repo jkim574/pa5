@@ -5,42 +5,42 @@ import java.util.Scanner;
 
 /**
  * VolunteerMatch is the main class for this program.
- * 
+ *
  * IMPLEMENT SOME METHODS OF THIS CLASS
- * 
+ *
  * It provides a main menu loop that allows the user
  * to manage events and volunteers and create (and remove)
  * matches between the two types.
- * 
+ *
  * See @EventManager for the type that stores events and volunteers.
- * 
+ *
  * The main menu loop interacts with an instance of EventManager using menu.
- * This class is also responsible for the most of the 
+ * This class is also responsible for the most of the
  * user input from menu and for reading and writing data in files.
  */
 public class VolunteerMatch {
-	
+
 	/** Use this scanner to read from prompt*/
 	private final static Scanner scn = new Scanner(System.in);
 
 	/**
 	 * The main method of this program.
-	 * 
+	 *
 	 * THIS METHOD IS IMPLEMENTED FOR YOU
-	 * 
+	 *
 	 * NOTE : PRINTING OUT IN THIS PROGRAM ONLY USES PREBUILT STRINGS FROM Resource CLASS.
 	 * USE ONLY "System.out.format(str, arg,..)" or "System.out.print(str)"
 	 * THE USE OF "System.out.println(str)" MAY CAUSE ADDITIONAL NEW LINES IN YOUR PROGRAM
 	 * DO COMPARE TO PROVIDED SAMPLE RUNS TO CHECK WHETHER YOUR OUTPUT HAS ADDITIONAL NEW LINES
 	 */
 	public static void main(String[] args){
-		
+
 		// Use an EventManager to store events and volunteers and matches
 		EventManager manager = new EventManager();
 
 		boolean isContinued = true;
 		while(isContinued){
-			
+
 			System.out.print(Resource.STR_MENU_MAIN);
 			String input = scn.nextLine().trim();
 
@@ -146,28 +146,28 @@ public class VolunteerMatch {
 
 	/**
 	 * Read data input file and parse to add volunteers and events into event manager.
-	 * 
+	 *
 	 * Note: Volunteers are read first, so that they exist before reading events that contain volunteer lists
 	 * Events may or may not include volunteers that have already been matched.
 	 * If a volunteer is listed for an event, that means that the volunteer is available on that date.
-	 * 
+	 *
 	 * (Volunteer Line Format)
 	 *   v;{name};{date},{date}...
 	 * (Event Line Format)
 	 *   e;{name};{date};{limit};{volunteer},{volunteer}...
-	 * 
+	 *
 	 * (Valid Volunteer Line Example)
 	 *   v  ;Mingi ;1 ,2  ,3, 4,23
 	 *   V: Sonu;
 	 * (Valid Event Line Example)
 	 *   e   ;Birth Day;23  ;1;  Mingi ,Sonu // should have Mingi and Sonu added into manager.
 	 *   E;birthday  ; 23; 10;
-	 * 
+	 *
 	 * NOTE1 : ignore lines that have invalid format and continue to parse
 	 * NOTE2 : there is no certain order for v/e lines but matched volunteers for an event must be added before adding the event.
-	 * 
+	 *
 	 * @see P5 description on Canvas
-	 * 
+	 *
 	 * @param manager an EventManager instance
 	 * @param filePath a VE file path to read
 	 * @throws FileNotFoundException if a file is not in filePath, it throws FileNotFoundException
@@ -178,33 +178,35 @@ public class VolunteerMatch {
 
 		//TODO: implement this to handle the menu items
 
-		
+		String line = fileScn.nextLine();
+		String[] parts = line.split(";");
+		String
 		fileScn.close();
 	}
 
 	/**
 	 * Write volunteers and events to a file. Writes volunteers first and then events.
 	 * The events include any volunteers that have already been matched.
-	 * 
+	 *
 	 * (Volunteer Line Format)
 	 *   v;{name};{date},{date}...
 	 * (Event Line Format)
 	 *   e;{name};{date};{limit};{volunteer},{volunteer}...
-	 *   
+	 *
 	 * (Example)
 	 * v;Mingi;10,15,20
 	 * v;Sonu;11,16,20
 	 * e;Birthday;20;3;Mingi,Sonu
 	 * e;Field trip;3;6;
-	 * 
+	 *
 	 * NOTE : there is no additional new line at the end
-	 * 
+	 *
 	 * @param manager an EventManager instance that can track volunteers and events
 	 * @param filePath the name of a file to write date toe
 	 * @throws FileNotFoundException if the program cannot make a file to the filePath, it throws FileNotFoundException
 	 */
 	public static void writeToFile(EventManager manager, String filePath) throws FileNotFoundException{
-	
+
 		PrintWriter writer = new PrintWriter(filePath);
 
 		//TODO: implement this to handle the menu items
