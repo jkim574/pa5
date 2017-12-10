@@ -50,8 +50,11 @@ public class EventManager {
 	 */
 	public boolean addEvent(String name, String dateStr, String limitStr){
 		// TODO: implement this method
-	    eventList = addEvent(name, date, limit);
+	    if (name == null && dateStr < 1 && dateStr > 30 && limit < 1) {
+		return false;
+	    } else {
 		return true;
+	    }
 	}
 
 	/**
@@ -70,8 +73,11 @@ public class EventManager {
 	 */
 	public boolean addVolunteer(String name, String[] availableDatesStrAry){
 		// TODO: implement this method
-		volunteerList
+	    if (!(name == null && name.equals(name))) {
+		return false;
+	    } else {
 		return true;
+	    }
 	}
 
 	/**
@@ -85,7 +91,9 @@ public class EventManager {
 	 */
 	public boolean removeEvent(String name) {
 		//TODO: implement this method
-
+	    for (eventList event : name) {
+		eventList.removeAdjacentNode(event);
+	    }
 		return true;
 	}
 
@@ -98,8 +106,10 @@ public class EventManager {
 	 */
 	public boolean removeVolunteer(String name){
 		// TODO: implement this method
-	    for (ArrayList<Volunteer>()
-		return false;
+	    for (volunteerList volunteer : name) {
+		volunteerList.hasVolunteer(name);
+	    }
+		return true;
 	}
 
 	/**
@@ -110,6 +120,11 @@ public class EventManager {
 	 */
 	public Event findEvent(String name){
 		// TODO: implement this method
+	    for (eventList elist : name) {
+		if (list.getDate().getLimit().equals(name) {
+			return elist;
+		    }
+	    }
 		return null;
 	}
 
@@ -121,6 +136,11 @@ public class EventManager {
 	 */
 	public Volunteer findVolunteer(String name){
 		// TODO: implement this method
+	    for (volunteerList vlist : name) {
+		if (vlist.hasEvent(name).equals(name) {
+			return vlist;
+		    }
+	    }
 		return null;
 	}
 
@@ -145,7 +165,11 @@ public class EventManager {
 	 */
 	public boolean createMatch(String eventName, String volunteerName){
 		// TODO: implement this method
+	    if (eventName == null || volunteerName == null) {
+		return false;
+	    } else if (eventList.isBelowLimit() && volunteerList.hasEvent(volunteerName)) {
 
+	    }
 		return true;
 	}
 
@@ -168,6 +192,7 @@ public class EventManager {
 	 */
 	public boolean removeMatch(String eventName, String volunteerName){
 		// TODO: implement this method
+
 		return true;
 	}
 
