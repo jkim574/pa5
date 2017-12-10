@@ -209,6 +209,12 @@ public class EventManager {
 	 */
 	public void displayAllEvents(){
 		// TODO: implement this method
+	    if (eventList.size() == 0) {
+	        Resource.STR_ERROR_DISPLAY_EVENT_FAILED;
+	    }
+	    for (List<Event> events : eventList) {
+		Resource.STR_DISPLAY_ALL_EVENTS_PRINT_FORMAT;
+	    }
 	}
 
 	/**
@@ -224,6 +230,12 @@ public class EventManager {
 	 */
 	public void displayAllVolunteers(){
 		// TODO: implement this method
+	    if (volunteerList.size() == 0) {
+		Resource.STR_ERROR_DISPLAY_VOLUNTEER_FAILED
+	    }
+	    for (List<Volunteer> volunteers : volunteerList) {
+		Resource.STR_DISPLAY_ALL_VOLUNTEERS_PRINT_FORMAT
+	    }
 	}
 
 	/**
