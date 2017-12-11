@@ -168,7 +168,7 @@ public class EventManager {
 	public Volunteer findVolunteer(String name){
 	    // TODO: implement this method
 	    for (Volunteer volunteer : volunteerList) {
-		if (volunteer.equals(name)) {
+		if (volunteer.getName().equals(name)) {
 		    return volunteer;
 		}
 	    }
