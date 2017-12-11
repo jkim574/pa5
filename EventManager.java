@@ -99,7 +99,7 @@ public class EventManager {
 		for(String str : availableDatesStrAry) {
 		    list.add(Integer.parseInt(str));
 		}
-		Volunteer myVolunteer = new Volunteer(name, );
+		Volunteer myVolunteer = new Volunteer(name, list);
 		volunteerList.add(myVolunteer);
 		Collections.sort(volunteerList);
 		return true;
