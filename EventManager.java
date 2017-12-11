@@ -117,10 +117,11 @@ public class EventManager {
 	 */
 	public boolean removeEvent(String name) {
 		//TODO: implement this method
-	    for (eventList event : name) {
-		eventList.removeAdjacentNode(event);
+
+	    if (eventList.equals(name)) {
+		eventList.remove(myEvent);
 	    }
-		return true;
+
 	}
 
 	/**
@@ -132,9 +133,7 @@ public class EventManager {
 	 */
 	public boolean removeVolunteer(String name){
 		// TODO: implement this method
-	    for (volunteerList volunteer : name) {
-		volunteerList.hasVolunteer(name);
-	    }
+
 		return true;
 	}
 
