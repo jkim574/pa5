@@ -118,12 +118,18 @@ public class EventManager {
 	public boolean removeEvent(String name) {
 		//TODO: implement this method
 	    for(Event event : eventList) {
-		if (event.getName().equals(name)) {
+			if (event.getName().equals(name)) {
+				List<Volunteer> volunteers = event.getAdjacentNodes();
+				for (Volunteer v : volunteers) {
+					// remove event from volunteer's event list
+					v.removeAdjacentNode(event);
+					// remove this volunteer from event's volunteer list
+					event.removeAdjacentNode(v);
+				}
 
-
-		    eventList.remove(event);
-		    return true;
-		}
+				eventList.remove(event);
+				return true;
+			}
 	    }
 	    return false;
 
