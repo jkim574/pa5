@@ -50,12 +50,18 @@ public class EventManager {
 	 */
 	public boolean addEvent(String name, String dateStr, String limitStr){
 		// TODO: implement this method
-	    if (name == null && dateStr < 1 && dateStr > 30 && limit < 1) {
+	    if (name == null) {
 		return false;
-	    } else {
-		return true;
 	    }
-	}
+	    if (dateStr < 1 && dateStr > 30) {
+		return false;
+	    }
+	    if (limit < 1) {
+		return false;
+	    }
+
+	    }
+
 
 	/**
 	 * Adds a new volunteer to the list of volunteers or returns false.
@@ -253,7 +259,8 @@ public class EventManager {
 	 */
 	public String toStringAllVolunteers(){
 		// TODO: implement this method
-		return null;
+
+	    return null;
 	}
 
 	/**
