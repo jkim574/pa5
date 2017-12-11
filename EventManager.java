@@ -152,7 +152,7 @@ public class EventManager {
 	    // TODO: implement this method
 	    for(Event event : eventList) {
 		if (event.getName().equals(name)) {
-		    return eventList.remove(event);
+		    return event;
 		}
 	    }
 	    return null;
