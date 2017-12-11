@@ -144,8 +144,19 @@ public class EventManager {
 	 */
 	public boolean removeVolunteer(String name){
 		// TODO: implement this method
+		for (Volunteer v : volunteers) {
+			if (v.getName().equals(name)) {
+				for (Event e : v.getAdjacentNodes()) {
+					// remove event from this volunteer
+					v.removeAdjacentNode(e);
+					e.removeAdjacentNode(v);
+				}
+				volunteerList.remove(v);
+				return true;
+			}
+		}
 
-		return true;
+		return false;
 	}
 
 	/**
@@ -157,9 +168,9 @@ public class EventManager {
 	public Event findEvent(String name){
 	    // TODO: implement this method
 	    for(Event event : eventList) {
-		if (event.getName().equals(name)) {
-		    return event;
-		}
+			if (event.getName().equals(name)) {
+				return event;
+			}
 	    }
 	    return null;
 	}
@@ -174,9 +185,9 @@ public class EventManager {
 	public Volunteer findVolunteer(String name){
 	    // TODO: implement this method
 	    for (Volunteer volunteer : volunteerList) {
-		if (volunteer.getName().equals(name)) {
-		    return volunteer;
-		}
+			if (volunteer.getName().equals(name)) {
+				return volunteer;
+			}
 	    }
 
 	    return null;
@@ -203,12 +214,20 @@ public class EventManager {
 	 */
 	public boolean createMatch(String eventName, String volunteerName){
 		// TODO: implement this method
-	    if (eventName == null || volunteerName == null) {
-		return false;
-	    } else if (eventList.isBelowLimit() && volunteerList.hasEvent(volunteerName)) {
+		Event event = findEvent(eventName);
+		Volunteer volunteer = findVolunteer(volunteerName);
 
+	    if (event == null || volunteer == null)
+			return false;
+
+		if (event.isBelowLimit() && volunteer.isAvailable(event.getDate())) {
+			event.addAdjacentNode(volunteer);
+			volunteer.addAdjacentNode(event);
+			volunteer.setUnavailable(event.getDate());
+			return true;
 	    }
-		return true;
+
+		return false;
 	}
 
 	/**
@@ -251,7 +270,7 @@ public class EventManager {
 	        Resource.STR_ERROR_DISPLAY_EVENT_FAILED;
 	    }
 	    for (List<Event> events : eventList) {
-		Resource.STR_DISPLAY_ALL_EVENTS_PRINT_FORMAT;
+			Resource.STR_DISPLAY_ALL_EVENTS_PRINT_FORMAT;
 	    }
 	}
 
@@ -269,11 +288,11 @@ public class EventManager {
 	public void displayAllVolunteers(){
 		// TODO: implement this method
 	    if (volunteerList.size() == 0) {
-		Resource.STR_ERROR_DISPLAY_VOLUNTEER_FAILED
-	    }
+			Resource.STR_ERROR_DISPLAY_VOLUNTEER_FAILED
+				}
 	    for (List<Volunteer> volunteers : volunteerList) {
-		Resource.STR_DISPLAY_ALL_VOLUNTEERS_PRINT_FORMAT
-	    }
+			Resource.STR_DISPLAY_ALL_VOLUNTEERS_PRINT_FORMAT
+				}
 	}
 
 	/**
@@ -310,4 +329,4 @@ public class EventManager {
 		// TODO: implement this method
 		return null;
 	}
-}
+	}
