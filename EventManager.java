@@ -166,13 +166,14 @@ public class EventManager {
 	 * @return volunteer if the volunteer exists, otherwise null.
 	 */
 	public Volunteer findVolunteer(String name){
-		// TODO: implement this method
-	    for (volunteerList vlist : name) {
-		if (vlist.hasEvent(name).equals(name) {
-			return vlist;
-		    }
+	    // TODO: implement this method
+	    for (Volunteer volunteer : volunteerList) {
+		if (volunteer.equals(name)) {
+		    return volunteer;
+		}
 	    }
-		return null;
+
+	    return null;
 	}
 
 	/**
