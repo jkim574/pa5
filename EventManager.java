@@ -250,7 +250,22 @@ public class EventManager {
 	public boolean removeMatch(String eventName, String volunteerName){
 		// TODO: implement this method
 
-		return true;
+		Event event = findEvent(eventName);
+		Volunteer volunteer = findVolunteer(volunteerName);
+
+	    if (event == null || volunteer == null)
+			return false;
+
+		for (Volunteer v : event.getAdjacentNodes()) {
+			if (v.getName().equals(volunteerName())) {
+				event.removeAdjacentNode(v);
+				v.removeAdjacentNode(e);
+				v.setAvailable(event.getDate());
+				return true
+			}
+		}
+
+		return false;
 	}
 
 	/**
