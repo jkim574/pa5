@@ -64,6 +64,7 @@ public class EventManager {
 			return false;
 		    }
 	    }
+		Event = new Event(Integer.parseInt(name), Integer.parseInt(dateStr), Integer.parseInt(limitStr));
 	}
 
 
