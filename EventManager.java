@@ -119,9 +119,13 @@ public class EventManager {
 		//TODO: implement this method
 	    for(Event event : eventList) {
 		if (event.getName().equals(name)) {
+
+
 		    eventList.remove(event);
+		    return true;
 		}
 	    }
+	    return false;
 
 	}
 
@@ -145,14 +149,15 @@ public class EventManager {
 	 * @return event if the event exists, otherwise null.
 	 */
 	public Event findEvent(String name){
-		// TODO: implement this method
-	    for (eventList elist : name) {
-		if (list.getDate().getLimit().equals(name) {
-			return elist;
-		    }
+	    // TODO: implement this method
+	    for(Event event : eventList) {
+		if (event.getName().equals(name)) {
+		    return eventList.remove(event);
+		}
 	    }
-		return null;
+	    return null;
 	}
+
 
 	/**
 	 * Return the volunteer with the given name.
