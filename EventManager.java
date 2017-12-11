@@ -66,6 +66,7 @@ public class EventManager {
 	    }
 		Event events = new Event(name, Integer.parseInt(dateStr), Integer.parseInt(limitStr));
 		eventList.add(events);
+		Collections.sort(eventList);
 	}
 
 
