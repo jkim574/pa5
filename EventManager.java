@@ -117,10 +117,10 @@ public class EventManager {
 	 */
 	public boolean removeEvent(String name) {
 		//TODO: implement this method
-
-	    if (eventList.equals(name)) {
-		eventList.remove(name);
-
+	    for(Event event : eventList) {
+		if (eventList.equals(name)) {
+		    eventList.remove(event);
+		}
 	    }
 
 	}
