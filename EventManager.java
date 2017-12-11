@@ -60,7 +60,9 @@ public class EventManager {
 		return false;
 	    }
 	    for (Event event : eventList) {
-		if (
+		if (event.equals(name) {
+			return false;
+		    }
 	    }
 	}
 
