@@ -119,7 +119,8 @@ public class EventManager {
 		//TODO: implement this method
 
 	    if (eventList.equals(name)) {
-		eventList.remove(myEvent);
+		eventList.remove(name);
+
 	    }
 
 	}
