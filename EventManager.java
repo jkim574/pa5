@@ -50,17 +50,19 @@ public class EventManager {
 	 */
 	public boolean addEvent(String name, String dateStr, String limitStr){
 		// TODO: implement this method
-	    if (name == null) {
+	    if (name == null || name.equals("")) {
 		return false;
 	    }
-	    if (dateStr < 1 && dateStr > 30) {
+	    if (dateStr < 1 || dateStr > 30) {
 		return false;
 	    }
 	    if (limit < 1) {
 		return false;
 	    }
-
+	    for (eventList list : name) {
+		if (
 	    }
+	}
 
 
 	/**
