@@ -1,16 +1,3 @@
-/////////////////////////////////////////////////////////////////////////////
-// Main Class File:  VolunteerMatch.java
-// File:             EventManager.java
-// Semester:         Fall 2017 Lec01
-//
-// Author:           Joong Ho Kim
-// CS Login:         joong
-// TA's Name:        Yash Trivedi
-//
-// Pair Partner:     None
-// Credits:          none
-//////////////////////////// 80 columns wide //////////////////////////////////
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -272,7 +259,7 @@ public class EventManager {
 				event.removeAdjacentNode(v);
 				v.removeAdjacentNode(e);
 				v.setAvailable(event.getDate());
-				return true;
+				return true
 			}
 		}
 
