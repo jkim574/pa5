@@ -95,7 +95,11 @@ public class EventManager {
 			return false;
 		    }
 	    }
-		Volunteer myVolunteer = new Volunteer(name, availableDatesStrAry);
+		List<Integer> list = new ArrayList<Integer>();
+		for(String str : availableDatesStrAry) {
+		    list.add(Integer.parseInt(str));
+		}
+		Volunteer myVolunteer = new Volunteer(name, );
 		volunteerList.add(myVolunteer);
 		Collections.sort(volunteerList);
 		return true;
