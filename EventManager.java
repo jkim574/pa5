@@ -59,7 +59,7 @@ public class EventManager {
 	    if (limit < 1) {
 		return false;
 	    }
-	    for (Event list : eventList) {
+	    for (Event event : eventList) {
 		if (
 	    }
 	}
