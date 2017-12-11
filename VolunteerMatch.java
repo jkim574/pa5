@@ -1,3 +1,15 @@
+/////////////////////////////////////////////////////////////////////////////
+// Main Class File:  VolunteerMatch.java
+// File:             VolunteerMatch.java
+// Semester:         Fall 2017 Lec01
+//
+// Author:           Joong Ho Kim
+// CS Login:         joong
+// TA's Name:        Yash Trivedi
+//
+// Pair Partner:     None
+// Credits:          none
+//////////////////////////// 80 columns wide //////////////////////////////////
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -180,7 +192,7 @@ public class VolunteerMatch {
 
 		String line = fileScn.nextLine();
 		String[] parts = line.split(";");
-		String
+		String parts
 		fileScn.close();
 	}
 

@@ -1,3 +1,16 @@
+/////////////////////////////////////////////////////////////////////////////
+// Main Class File:  VolunteerMatch.java
+// File:             EventManager.java
+// Semester:         Fall 2017 Lec01
+//
+// Author:           Joong Ho Kim
+// CS Login:         joong
+// TA's Name:        Yash Trivedi
+//
+// Pair Partner:     None
+// Credits:          none
+//////////////////////////// 80 columns wide //////////////////////////////////
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -51,25 +64,24 @@ public class EventManager {
 	public boolean addEvent(String name, String dateStr, String limitStr){
 		// TODO: implement this method
 	    if (name == null || name.equals("")) {
-		return false;
+			return false;
 	    }
 	    if (dateStr < 1 || dateStr > 30) {
-		return false;
+			return false;
 	    }
 	    if (limit < 1) {
-		return false;
+			return false;
 	    }
 	    for (Event event : eventList) {
-		if (event.equals(name) {
-			return false;
-		    }
-	    }
+			if (event.equals(name)) {
+				return false;
+			}
+		}
 		Event myEvent = new Event(name, Integer.parseInt(dateStr), Integer.parseInt(limitStr));
 		eventList.add(myEvent);
 		Collections.sort(eventList);
 		return true;
 	}
-
 
 	/**
 	 * Adds a new volunteer to the list of volunteers or returns false.
@@ -88,11 +100,11 @@ public class EventManager {
 	public boolean addVolunteer(String name, String[] availableDatesStrAry){
 		// TODO: implement this method
 	    if (name =! null || name.equals("")) {
-		return false;
+			return false;
 	    }
 	    for (Volunteer volunteer : volunteerList) {
-		if (volunteer.equals(name) {
-			return false;
+			if (volunteer.equals(name)) {
+				return false;
 		    }
 	    }
 		List<Integer> list = new ArrayList<Integer>();
@@ -103,7 +115,6 @@ public class EventManager {
 		volunteerList.add(myVolunteer);
 		Collections.sort(volunteerList);
 		return true;
-
 	}
 
 	/**
@@ -118,12 +129,18 @@ public class EventManager {
 	public boolean removeEvent(String name) {
 		//TODO: implement this method
 	    for(Event event : eventList) {
-		if (event.getName().equals(name)) {
+			if (event.getName().equals(name)) {
+				List<Volunteer> volunteers = event.getAdjacentNodes();
+				for (Volunteer v : volunteers) {
+					// remove event from volunteer's event list
+					v.removeAdjacentNode(event);
+					// remove this volunteer from event's volunteer list
+					event.removeAdjacentNode(v);
+				}
 
-
-		    eventList.remove(event);
-		    return true;
-		}
+				eventList.remove(event);
+				return true;
+			}
 	    }
 	    return false;
 
@@ -138,8 +155,19 @@ public class EventManager {
 	 */
 	public boolean removeVolunteer(String name){
 		// TODO: implement this method
+		for (Volunteer v : volunteers) {
+			if (v.getName().equals(name)) {
+				for (Event e : v.getAdjacentNodes()) {
+					// remove event from this volunteer
+					v.removeAdjacentNode(e);
+					e.removeAdjacentNode(v);
+				}
+				volunteerList.remove(v);
+				return true;
+			}
+		}
 
-		return true;
+		return false;
 	}
 
 	/**
@@ -151,9 +179,9 @@ public class EventManager {
 	public Event findEvent(String name){
 	    // TODO: implement this method
 	    for(Event event : eventList) {
-		if (event.getName().equals(name)) {
-		    return event;
-		}
+			if (event.getName().equals(name)) {
+				return event;
+			}
 	    }
 	    return null;
 	}
@@ -168,9 +196,9 @@ public class EventManager {
 	public Volunteer findVolunteer(String name){
 	    // TODO: implement this method
 	    for (Volunteer volunteer : volunteerList) {
-		if (volunteer.getName().equals(name)) {
-		    return volunteer;
-		}
+			if (volunteer.getName().equals(name)) {
+				return volunteer;
+			}
 	    }
 
 	    return null;
@@ -197,12 +225,20 @@ public class EventManager {
 	 */
 	public boolean createMatch(String eventName, String volunteerName){
 		// TODO: implement this method
-	    if (eventName == null || volunteerName == null) {
-		return false;
-	    } else if (eventList.isBelowLimit() && volunteerList.hasEvent(volunteerName)) {
+		Event event = findEvent(eventName);
+		Volunteer volunteer = findVolunteer(volunteerName);
 
+	    if (event == null || volunteer == null)
+			return false;
+
+		if (event.isBelowLimit() && volunteer.isAvailable(event.getDate())) {
+			event.addAdjacentNode(volunteer);
+			volunteer.addAdjacentNode(event);
+			volunteer.setUnavailable(event.getDate());
+			return true;
 	    }
-		return true;
+
+		return false;
 	}
 
 	/**
@@ -225,7 +261,22 @@ public class EventManager {
 	public boolean removeMatch(String eventName, String volunteerName){
 		// TODO: implement this method
 
-		return true;
+		Event event = findEvent(eventName);
+		Volunteer volunteer = findVolunteer(volunteerName);
+
+	    if (event == null || volunteer == null)
+			return false;
+
+		for (Volunteer v : event.getAdjacentNodes()) {
+			if (v.getName().equals(volunteerName())) {
+				event.removeAdjacentNode(v);
+				v.removeAdjacentNode(e);
+				v.setAvailable(event.getDate());
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -242,17 +293,29 @@ public class EventManager {
 	public void displayAllEvents(){
 		// TODO: implement this method
 	    if (eventList.size() == 0) {
-	        Resource.STR_ERROR_DISPLAY_EVENT_FAILED;
+	        System.out.println(Resource.STR_ERROR_DISPLAY_EVENT_FAILED);
 	    }
-	    for (List<Event> events : eventList) {
-		Resource.STR_DISPLAY_ALL_EVENTS_PRINT_FORMAT;
+
+		System.out.printf(Resource.STR_DISPLAY_ALL_EVENTS_PRINT_FORMAT, eventList.size());
+	    for (Event event : eventList) {
+			System.out.println(event);
+			// System.out.printf(Resource.STR_DISPLAY_EVENT_PRINT_FORMAT, event.getName(),
+			// 				  event.getDate(),
+			// 				  event.getLimit()
+			// 	);
+			// int count = 1;
+			// for (Volunteer vol : event.getAdjacentNodes()) {
+			// 	System.out.printf(Resource.STR_DISPLAY_EVENT_VOLUNTEERS_PRINT_FORMAT,
+			// 								  count++,
+			// 								  vol.getName());
+			// }
 	    }
 	}
 
 	/**
 	 * This method is used to display all the volunteers along
 	 * with corresponding matches with the events.
-	 * Check sample files for exact format of the display.
+	 * Cnnheck sample files for exact format of the display.
 	 *
 	 * Utilize formats defined in the resource file for
 	 * display in the correct format.
@@ -263,11 +326,14 @@ public class EventManager {
 	public void displayAllVolunteers(){
 		// TODO: implement this method
 	    if (volunteerList.size() == 0) {
-		Resource.STR_ERROR_DISPLAY_VOLUNTEER_FAILED
-	    }
-	    for (List<Volunteer> volunteers : volunteerList) {
-		Resource.STR_DISPLAY_ALL_VOLUNTEERS_PRINT_FORMAT
-	    }
+			System.out.println(Resource.STR_ERROR_DISPLAY_VOLUNTEER_FAILED);
+		}
+
+		System.out.printf(Resource.STR_DISPLAY_ALL_VOLUNTEERS_PRINT_FORMAT, volunteerList.size());
+	    for (Volunteer volunteer : volunteerList) {
+			System.out.println(volunteer);
+		}
+
 	}
 
 	/**
@@ -285,8 +351,12 @@ public class EventManager {
 	 */
 	public String toStringAllVolunteers(){
 		// TODO: implement this method
+		StringBuilder strBuilder = new StringBuilder();
+		for (Volunteer v : volunteerList) {
+			strBuilder.append(v.toFileString());
+		}
 
-	    return null;
+	    return strBuilder.toString();
 	}
 
 	/**
@@ -300,8 +370,13 @@ public class EventManager {
 	 * @return string containing all the events in the format
 	 * needed to be printed in the file.
 	 */
-	public String toStringAllEvents(){
+	public String toStringAllEvents() {
 		// TODO: implement this method
-		return null;
+		StringBuilder strBuilder = new StringBuilder();
+		for (Event e : eventList) {
+			strBuilder.append(e.toFileString());
+		}
+
+	    return strBuilder.toString();
 	}
 }
