@@ -64,8 +64,8 @@ public class EventManager {
 			return false;
 		    }
 	    }
-		Event events = new Event(name, Integer.parseInt(dateStr), Integer.parseInt(limitStr));
-		eventList.add(events);
+		Event myEvent = new Event(name, Integer.parseInt(dateStr), Integer.parseInt(limitStr));
+		eventList.add(myEvent);
 		Collections.sort(eventList);
 		return true;
 	}
@@ -87,11 +87,19 @@ public class EventManager {
 	 */
 	public boolean addVolunteer(String name, String[] availableDatesStrAry){
 		// TODO: implement this method
-	    if (!(name == null && name.equals(name))) {
+	    if (name =! null || name.equals("")) {
 		return false;
-	    } else {
-		return true;
 	    }
+	    for (Volunteer volunteer : volunteerList) {
+		if (volunteer.equals(name) {
+			return false;
+		    }
+	    }
+		Volunteer myVolunteer = new Volunteer(name, availableDatesStrAry);
+		volunteerList.add(myVolunteer);
+		Collections.sort(volunteerList);
+		return true;
+
 	}
 
 	/**
